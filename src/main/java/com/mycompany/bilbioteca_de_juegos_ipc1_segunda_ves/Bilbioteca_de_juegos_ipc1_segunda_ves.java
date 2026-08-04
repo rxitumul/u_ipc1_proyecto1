@@ -4,7 +4,7 @@
 
 package com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves;
 
-import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.FrontEnd.MenusIniciales;
+import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.MenuLoguica;
 
 /**
  *
@@ -13,9 +13,7 @@ import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.FrontEnd.MenusInicial
 public class Bilbioteca_de_juegos_ipc1_segunda_ves {
 
     public static void main(String[] args) {
-        MenusIniciales menu = new MenusIniciales();
-        menu.pantallaDeOpciones();
-        menu.pantallaDeError();
-        menu.pantallaDeSalida();
+MenuLoguica menuLogica = new MenuLoguica();
+        menuLogica.menuDeOpciones();
     }
 }
