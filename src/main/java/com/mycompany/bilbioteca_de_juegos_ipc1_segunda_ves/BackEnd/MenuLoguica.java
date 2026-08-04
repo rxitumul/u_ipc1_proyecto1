@@ -19,13 +19,12 @@ public class MenuLoguica {
 
     public void menuDeOpciones() {
         menu.pantallaDeOpciones();
-        // menu.pantallaDeOpciones
 
         try {
             opcionDeJuego = scanner.nextInt();
         } catch (NumberFormatException e) {
             System.out.println("Ingrese un numero valido");
-            // menu.pantallaDeOpciones();
+             menu.pantallaDeOpciones();
         }
     }
 }
