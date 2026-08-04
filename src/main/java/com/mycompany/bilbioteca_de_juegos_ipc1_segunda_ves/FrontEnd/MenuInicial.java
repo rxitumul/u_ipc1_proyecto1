@@ -15,6 +15,9 @@ public class MenuInicial {
         System.out.println("Seleccione el juego que desea jugar");
         System.out.println("1. Adivina anagramas");
         System.out.println("2. Tic Tac Toe");
-        System.out.println("3. Sudoku");
+        System.out.println("3. Sudoku     ");
+        System.out.println("3. Sudoku     ");
+        System.out.println("3. Sudoku     ");
+         
     }
 }
