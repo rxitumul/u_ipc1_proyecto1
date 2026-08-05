@@ -68,4 +68,12 @@ public class MenusIniciales {
         configuracionesProyectoVisual.separadorDeLineas();
     }
 
+    public void regresandoAlMenuPrincipal() {
+        configuracionesProyectoVisual.delayThread();
+        configuracionesProyectoVisual.limpiarPantalla();
+        configuracionesProyectoVisual.separadorDeLineas();
+        System.out.printf("%-3s%s%2s%n%-15s%s%14s%n", "|", "Regresando al menú principal", "|", "|",
+                "¡Hasta luego!", "|");
+        configuracionesProyectoVisual.separadorDeLineas();
+    }
 }

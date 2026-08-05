@@ -1,5 +1,7 @@
 package com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.FrontEnd;
 
+import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.TicTicTacH.Casilla;
+
 public class InterfasDeJuegos {
     private ConfiguracionDeVisualBiblioteca configuracionesProyectoVisual = new ConfiguracionDeVisualBiblioteca();
 
@@ -13,31 +15,19 @@ public class InterfasDeJuegos {
         configuracionesProyectoVisual.separadorDeLineas();
     }
 
-    public void ticTacToe(int[][] mapeoDeTablero, String turnoDeJugador) {
-        String[][] simboloDeJugador = new String[3][3];
+    public void ticTacToe(Casilla[][] mapeoDeTablero, String turnoDeJugador) {
 
-        for (int i = 0; i < mapeoDeTablero.length; i++) {
-            for (int j = 0; j < mapeoDeTablero[i].length; j++) {
-                if (mapeoDeTablero[i][j] == 1) {
-                    simboloDeJugador[i][j] = "\033[31mX\033[0m";
-                } else if (mapeoDeTablero[i][j] == 2) {
-                    simboloDeJugador[i][j] = "\033[34mO\033[0m";
-                } else {
-                    simboloDeJugador[i][j] = " ";
-                }
-            }
-        }
         configuracionesProyectoVisual.delayThread();
         configuracionesProyectoVisual.limpiarPantalla();
 
         System.out.println("    A  " + "   B   " + "  C  ");
         for (int i = 0; i < mapeoDeTablero.length; i++) {
             System.out.println(" |" + "-".repeat(5) + "|" + "-".repeat(5) + "|" + "-".repeat(5) + "|");
-            System.out.println(i + "|  " + simboloDeJugador[i][0] + "  |  " + simboloDeJugador[i][1] + "  |  "
-                    + simboloDeJugador[i][2] + "  |");
-                }
-                System.out.println(" |" + "-".repeat(5) + "|" + "-".repeat(5) + "|" + "-".repeat(5) + "|");
-
+            System.out.println(i + "|  " + mapeoDeTablero[i][0].estadoDeCasilla() + "  |  "
+                    + mapeoDeTablero[i][1].estadoDeCasilla() + "  |  " + mapeoDeTablero[i][2].estadoDeCasilla()
+                    + "  |");
+        }
+        System.out.println(" |" + "-".repeat(5) + "|" + "-".repeat(5) + "|" + "-".repeat(5) + "|");
         System.out.println("Turno del jugador: " + turnoDeJugador);
 
     }
@@ -96,8 +86,8 @@ public class InterfasDeJuegos {
                 + "-".repeat(5) + "\033[38;5;244m|\033[0m" + "-".repeat(5) + "|" + "-".repeat(5)
                 + "\033[38;5;244m|\033[0m" + "-".repeat(5) + "\033[38;5;244m|\033[0m" + "-".repeat(5) + "|");
 
-                System.out.println("Ingrese la fila y columna de la celda que desea modificar (ejemplo: A1):");
-                configuracionesProyectoVisual.separadorDeLineas();
+        System.out.println("Ingrese la fila y columna de la celda que desea modificar (ejemplo: A1):");
+        configuracionesProyectoVisual.separadorDeLineas();
 
     }
 }

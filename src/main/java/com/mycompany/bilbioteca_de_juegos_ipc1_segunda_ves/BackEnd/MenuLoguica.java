@@ -33,33 +33,35 @@ public class MenuLoguica {
                     menu.pantallaDeError();
                 }
             } catch (Exception e) {
-                System.out.println(
-                        "\033[31m"
-                                + "!!!!!!!! Error: Opción inválida. Por favor de ingresar un numero o una opción válida. !!!!!!!!\033[0m");
+                System.out.println(e);
+                menu.pantallaDeError();
             }
         }
     }
 
     public void llamadaDeMenuDeJuegos(int opcionDeJuego) {
 
-        
+        String continuar;
         menu.menuDeJuegos(opcionDeJuego);
-        
-        switch (opcionDeJuego) {
-            case 1:
-                AdivinaAnagramas adivinaAnagramas = new AdivinaAnagramas();
-                adivinaAnagramas.jugarAdivinaAnagramas();
-                break;
-            case 2:
-                TicTicTac ticTacToe = new TicTicTac();
-                ticTacToe.jugarTicTacToe();
-                break;
-            case 3:
-                Sudoku sudoku = new Sudoku();
-                sudoku.jugarSudoku();
-                break;
+        continuar = scanner.nextLine();
+        if (continuar.equalsIgnoreCase("1")) {
+            switch (opcionDeJuego) {
+                case 1:
+                    AdivinaAnagramas adivinaAnagramas = new AdivinaAnagramas();
+                    adivinaAnagramas.jugarAdivinaAnagramas();
+                    break;
+                case 2:
+                    TicTicTac ticTacToe = new TicTicTac();
+                    ticTacToe.jugarTicTacToe();
+                    break;
+                case 3:
+                    SudokuJuego sudoku = new SudokuJuego();
+                    sudoku.jugarSudoku();
+                    break;
+            }
+        } else {
+            menu.regresandoAlMenuPrincipal();
         }
-
 
     }
 }
