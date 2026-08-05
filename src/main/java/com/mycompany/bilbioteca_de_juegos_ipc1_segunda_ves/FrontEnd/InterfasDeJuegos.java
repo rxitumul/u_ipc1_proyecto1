@@ -1,5 +1,7 @@
 package com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.FrontEnd;
 
+import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.Sudoku.CasillaSudoku;
+import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.Sudoku.NumeralVacio;
 import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.TicTicTacH.Casilla;
 
 public class InterfasDeJuegos {
@@ -32,13 +34,13 @@ public class InterfasDeJuegos {
 
     }
 
-    public void sudoku(int[][] mapeoDeSudoku) {
+    public void sudoku(CasillaSudoku[][] mapeoDeSudoku) {
 
         int contador = 0;
         int contadorDeCeldasMayores = 3;
         configuracionesProyectoVisual.delayThread();
         configuracionesProyectoVisual.limpiarPantalla();
-        System.out.println("    A  " + "   B   " + " C  " + "  D  " + "   E   " + "  F  " + " G  " + "   H   "
+        System.out.print("    A  " + "   B   " + "  C   " + "   D   " + "  E   " + "  F  " + "   G  " + "   H   "
                 + "  I  ");
         for (int i = 0; i < mapeoDeSudoku.length; i++) {
             if (contadorDeCeldasMayores == 3) {
@@ -65,11 +67,8 @@ public class InterfasDeJuegos {
             System.out.print("|");
             for (int j = 0; j < mapeoDeSudoku[i].length; j++) {
                 contador++;
-                if (mapeoDeSudoku[i][j] == 0) {
-                    System.out.print("     ");
-                } else {
-                    System.out.print("  " + mapeoDeSudoku[i][j] + "  ");
-                }
+                System.out.print("  " + mapeoDeSudoku[i][j].getSimbolo() + "  ");
+
                 if (contador == 3) {
                     System.out.print("|");
                     contador = 0;
@@ -86,7 +85,7 @@ public class InterfasDeJuegos {
                 + "-".repeat(5) + "\033[38;5;244m|\033[0m" + "-".repeat(5) + "|" + "-".repeat(5)
                 + "\033[38;5;244m|\033[0m" + "-".repeat(5) + "\033[38;5;244m|\033[0m" + "-".repeat(5) + "|");
 
-        System.out.println("Ingrese la fila y columna de la celda que desea modificar (ejemplo: A1):");
+        System.out.println("Ingrese la fila y columna de la celda que desea modificar (ejemplo: 1A):");
         configuracionesProyectoVisual.separadorDeLineas();
 
     }
