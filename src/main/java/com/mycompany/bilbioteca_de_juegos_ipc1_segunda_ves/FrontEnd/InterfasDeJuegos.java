@@ -85,6 +85,7 @@ public class InterfasDeJuegos {
                 + "-".repeat(5) + "\033[38;5;244m|\033[0m" + "-".repeat(5) + "|" + "-".repeat(5)
                 + "\033[38;5;244m|\033[0m" + "-".repeat(5) + "\033[38;5;244m|\033[0m" + "-".repeat(5) + "|");
 
+        System.out.println("Escriba x  para regresar o ");
         System.out.println("Ingrese la fila y columna de la celda que desea modificar (ejemplo: 1A):");
         configuracionesProyectoVisual.separadorDeLineas();
 

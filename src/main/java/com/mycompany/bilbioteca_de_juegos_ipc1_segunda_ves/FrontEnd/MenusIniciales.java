@@ -61,8 +61,8 @@ public class MenusIniciales {
         System.out.printf("%-10s%s%11s%n", "| ", "Seleccione una opción", " |");
         configuracionesProyectoVisual.separadorDeLineas();
         System.out.printf("%-12s%s%22s%n", "|", "1. Jugar", "|");
-        //System.out.printf("%-12s%s%7s%n", "|", "2. Ver reglas del juego", "|");
-        System.out.printf("%-12s%s%12s%n", "|", "3. Salir del juego", "|");
+        // System.out.printf("%-12s%s%7s%n", "|", "2. Ver reglas del juego", "|");
+        System.out.printf("%-12s%s%12s%n", "|", "2. Salir del juego", "|");
         configuracionesProyectoVisual.separadorDeLineas();
         System.out.println("Ingrese el número de la opción que desea seleccionar:");
         configuracionesProyectoVisual.separadorDeLineas();
@@ -74,6 +74,20 @@ public class MenusIniciales {
         configuracionesProyectoVisual.separadorDeLineas();
         System.out.printf("%-3s%s%2s%n%-15s%s%14s%n", "|", "Regresando al menú principal", "|", "|",
                 "¡Hasta luego!", "|");
+        configuracionesProyectoVisual.separadorDeLineas();
+    }
+
+    public void selectorDeDificultad() {
+        configuracionesProyectoVisual.separadorDeLineas();
+        System.out.printf("%-10s%s%11s%n", "| ", "Eliga una dificultad ", " |");
+        configuracionesProyectoVisual.separadorDeLineas();
+        System.out.printf("%-10s%s%11s%n", "| ", "Seleccione una opción", " |");
+        configuracionesProyectoVisual.separadorDeLineas();
+        System.out.printf("%-12s%s%22s%n", "|", "1. Facil", "|");
+        System.out.printf("%-12s%s%22s%n", "|", "2. Medio", "|");
+        System.out.printf("%-12s%s%20s%n", "|", "3. Dificil", "|");
+        configuracionesProyectoVisual.separadorDeLineas();
+        System.out.println("Ingrese el número de la opción que desea seleccionar:");
         configuracionesProyectoVisual.separadorDeLineas();
     }
 }

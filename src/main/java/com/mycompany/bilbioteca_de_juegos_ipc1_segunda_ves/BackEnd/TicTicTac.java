@@ -22,55 +22,58 @@ public class TicTicTac {
         String movimientoJugador;
 
         while (true) {
-            interfasDeJuegos.ticTacToe(mapeoDeTicTacToe, "0");
-            movimientoJugador = scanner.nextLine();
+            try {
+                interfasDeJuegos.ticTacToe(mapeoDeTicTacToe, "0");
+                movimientoJugador = scanner.nextLine();
 
-            if (movimientoJugador.length() == 2) {
+                if (movimientoJugador.length() == 2) {
 
-                char fila = movimientoJugador.charAt(0);
-                char columna = movimientoJugador.charAt(1);
+                    char fila = movimientoJugador.charAt(0);
+                    char columna = movimientoJugador.charAt(1);
 
-                boolean filaValida = Character.isDigit(fila);
-                boolean columnaValida = Character.isLetter(columna);
-                // validacion de movimiento del jugador
-                if (filaValida && columnaValida
-                        && mapeoDeTicTacToe[Character.getNumericValue(fila)][Character.toUpperCase(columna) - 'A']
-                                .estaOcupada() == false) {
+                    boolean filaValida = Character.isDigit(fila);
+                    boolean columnaValida = Character.isLetter(columna);
+                    // validacion de movimiento del jugador
+                    if (filaValida && columnaValida
+                            && mapeoDeTicTacToe[Character.getNumericValue(fila)][Character.toUpperCase(columna) - 'A']
+                                    .estaOcupada() == false) {
 
-                    pintorDeCasillas(mapeoDeTicTacToe, fila, columna);
+                        pintorDeCasillas(mapeoDeTicTacToe, fila, columna);
 
-                    if (condicionDeVictoria(mapeoDeTicTacToe, "Jugador")) {
-                        interfasDeJuegos.ticTacToe(mapeoDeTicTacToe, "0");
-                        System.out.println("¡El Jugador gana!");
-                        break;
-                    } else if (condicionDeEmpate(mapeoDeTicTacToe)) {
-                        interfasDeJuegos.ticTacToe(mapeoDeTicTacToe, "0");
-                        System.out.println("¡Es un Empate!");
-                        break;
+                        if (condicionDeVictoria(mapeoDeTicTacToe, "Jugador")) {
+                            interfasDeJuegos.ticTacToe(mapeoDeTicTacToe, "0");
+                            System.out.println("¡El Jugador gana!");
+                            break;
+                        } else if (condicionDeEmpate(mapeoDeTicTacToe)) {
+                            interfasDeJuegos.ticTacToe(mapeoDeTicTacToe, "0");
+                            System.out.println("¡Es un Empate!");
+                            break;
+                        }
+
+                        // juego del bot
+                        traductorDeBot(mapeoDeTicTacToe, fila, columna);
+
+                        if (condicionDeVictoria(mapeoDeTicTacToe, "Bot")) {
+                            interfasDeJuegos.ticTacToe(mapeoDeTicTacToe, "0");
+                            System.out.println("¡El Bot gana!");
+                            break;
+                        }
+
+                        else if (condicionDeEmpate(mapeoDeTicTacToe)) {
+                            interfasDeJuegos.ticTacToe(mapeoDeTicTacToe, "0");
+                            System.out.println("¡Es un Empate!");
+                            break;
+                        }
+
+                    } else {
+                        mensajeDeError();
                     }
-
-                    // juego del bot
-                    traductorDeBot(mapeoDeTicTacToe, fila, columna);
-
-                    if (condicionDeVictoria(mapeoDeTicTacToe, "Bot")) {
-                        interfasDeJuegos.ticTacToe(mapeoDeTicTacToe, "0");
-                        System.out.println("¡El Bot gana!");
-                        break;
-                    }
-
-                    else if (condicionDeEmpate(mapeoDeTicTacToe)) {
-                        interfasDeJuegos.ticTacToe(mapeoDeTicTacToe, "0");
-                        System.out.println("¡Es un Empate!");
-                        break;
-                    }
-
                 } else {
                     mensajeDeError();
                 }
-            } else {
+            } catch (ArrayIndexOutOfBoundsException e) {
                 mensajeDeError();
             }
-
         }
 
     }
@@ -87,7 +90,7 @@ public class TicTicTac {
 
         int filaIndice = Character.getNumericValue(fila);
         casillaSeleccionada(mapeoDeTicTacToe, filaIndice, Character.toUpperCase(columna) - 'A', true);
-        
+
     }
 
     private void casillaSeleccionada(Casilla[][] mapeoDeTicTacToe, int filaIndice, int columnaIndice, boolean caso) {

@@ -42,6 +42,39 @@ public class MenuLoguica {
     public void llamadaDeMenuDeJuegos(int opcionDeJuego) {
 
         String continuar;
+        int dificultad = 0;
+        while (true) {
+
+            try {
+                switch (opcionDeJuego) {
+                    case 1:
+                        menu.selectorDeDificultad();
+                        dificultad = Integer.parseInt(scanner.nextLine());
+                        break;
+                    case 3:
+                        menu.selectorDeDificultad();
+                        dificultad = Integer.parseInt(scanner.nextLine());
+                        switch (dificultad) {
+                            case 1:
+                                dificultad = 30;
+                                break;
+                            case 2:
+                                dificultad = 46;
+                                break;
+
+                            default:
+                                dificultad = 64;
+                                break;
+                        }
+                        break;
+                }
+                break;
+
+            } catch (NumberFormatException e) {
+                menu.pantallaDeError();
+            }
+        }
+
         menu.menuDeJuegos(opcionDeJuego);
         continuar = scanner.nextLine();
         if (continuar.equalsIgnoreCase("1")) {
@@ -56,7 +89,7 @@ public class MenuLoguica {
                     break;
                 case 3:
                     SudokuJuego sudoku = new SudokuJuego();
-                    sudoku.jugarSudoku();
+                    sudoku.jugarSudoku(dificultad);
                     break;
             }
         } else {

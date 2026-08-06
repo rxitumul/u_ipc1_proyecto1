@@ -17,6 +17,8 @@ import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.TicTicTacH.Ca
 import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.TicTicTacH.CasillaVacia;
 
 public class BibliotecaDeDatosJuegos {
+    private Random random = new Random();
+
     private final static String[] BASE_DE_DATOS_DE_ANAGRAMAS = { "amor", "roma", "perro", "roper", "gato", "toga",
             "casa", "saca", "mesa",
             "samen" };
@@ -38,7 +40,7 @@ public class BibliotecaDeDatosJuegos {
         return mapaInicialDeTicTacToe;
     }
 
-    public CasillaSudoku[][] getBaseDeDatosDeSudoku() {
+    public CasillaSudoku[][] getBaseDeDatosDeSudoku(int dificultad) {
         for (int i = 0; i < mapaDeSudoku.length; i++) {
             for (int j = 0; j < mapaDeSudoku[i].length; j++) {
                 mapaDeSudoku[i][j] = new NumeralVacio();
@@ -47,12 +49,12 @@ public class BibliotecaDeDatosJuegos {
         creadorDeSudoku(0, 3);
         creadorDeSudoku(3, 6);
         creadorDeSudoku(6, 9);
-
+        tableroRellenado();
+        quitadorDeNumerosRandom(dificultad);
         return mapaDeSudoku;
     }
 
     private void creadorDeSudoku(int rangoA, int rangoB) {
-        Random random = new Random();
         int numeroRandom;
         int[] bar = new int[9];
         for (int i = 0; i < bar.length; i++) {
@@ -76,7 +78,7 @@ public class BibliotecaDeDatosJuegos {
         }
     }
 
-    private CasillaSudoku tablaDeNumeros(int tipo) {
+    public CasillaSudoku tablaDeNumeros(int tipo) {
         switch (tipo) {
             case 1:
                 return new Numeral1();
@@ -96,6 +98,71 @@ public class BibliotecaDeDatosJuegos {
                 return new Numeral8();
             default:
                 return new Numeral9();
+        }
+    }
+
+    public boolean esValido(int fila, int columna, int num, CasillaSudoku[][] mapaDeSudokuLocal) {
+        for (int i = 0; i < 9; i++) {
+            if (mapaDeSudokuLocal[fila][i].getValorDeCasilla() == num) {
+                return false;
+            }
+            if (mapaDeSudokuLocal[i][columna].getValorDeCasilla() == num) {
+                return false;
+            }
+        }
+        int inicioFila = (fila / 3) * 3;
+        int inicioColumna = (columna / 3) * 3;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (mapaDeSudokuLocal[inicioFila + i][inicioColumna + j].getValorDeCasilla() == num) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean tableroRellenado() {
+        for (int i = 0; i < mapaDeSudoku.length; i++) {
+            for (int j = 0; j < mapaDeSudoku[i].length; j++) {
+                if (mapaDeSudoku[i][j].getValorDeCasilla() == 0) {
+                    for (int num = 1; num <= 9; num++) {
+                        if (esValido(i, j, num, mapaDeSudoku)) {
+                            mapaDeSudoku[i][j] = tablaDeNumeros(num);
+                            mapaDeSudoku[i][j].setGeneradoInicial(true);
+                            mapaDeSudoku[i][j].condicionesIniciales();
+
+                            if (tableroRellenado()) {
+                                return true;
+                            }
+
+                            mapaDeSudoku[i][j] = new NumeralVacio();
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private void quitadorDeNumerosRandom(int dificultad) {
+        int columna;
+        int fila;
+
+        for (int i = 0; i < dificultad; i++) {
+            while (true) {
+                fila = random.nextInt(9);
+                columna = random.nextInt(9);
+                if (mapaDeSudoku[fila][columna].getValorDeCasilla() != 0) {
+                    mapaDeSudoku[fila][columna] = new NumeralVacio();
+                    mapaDeSudoku[fila][columna].condicionesIniciales();
+                    mapaDeSudoku[fila][columna].setGeneradoInicial(false);
+                    break;
+                }
+
+            }
+
         }
     }
 }
