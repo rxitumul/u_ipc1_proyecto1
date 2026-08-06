@@ -25,7 +25,9 @@ public class SudokuJuego {
 
                 interfasDeJuegos.sudoku(mapeoDeSudoku);
                 opcionDeJugador = scanner.nextLine();
+
                 if (opcionDeJugador.length() == 2) {
+
                     char fila = opcionDeJugador.charAt(0);
                     char columna = opcionDeJugador.charAt(1);
 
@@ -36,17 +38,19 @@ public class SudokuJuego {
                     columnaNumero = Character.toUpperCase(columna) - 'A';
 
                     // validacion de movimiento del jugador
-                    if (filaValida && columnaValida
+                    if (filaNumero < 9 && columnaNumero < 9 && filaValida && columnaValida
                             && mapeoDeSudoku[filaNumero][columnaNumero].getGeneradoInicial() == false) {
 
                         System.out.println("Ingrese un numero del 1 al 9");
                         numero = Integer.parseInt(scanner.nextLine());
 
                         if (numero >= 1 && numero <= 9
-                                && bibliotecaDeDatosJuegos.esValido(filaNumero, columnaNumero, numero, mapeoDeSudoku)) {
+                                && esValidoVictoria(filaNumero, columnaNumero, numero, mapeoDeSudoku)) {
+
                             mapeoDeSudoku[filaNumero][columnaNumero] = bibliotecaDeDatosJuegos.tablaDeNumeros(numero);
                             mapeoDeSudoku[filaNumero][columnaNumero].setGeneradoInicial(false);
                             mapeoDeSudoku[filaNumero][columnaNumero].condicionesIniciales();
+
                         } else {
                             menuInicial.pantallaDeError();
                         }
@@ -113,7 +117,9 @@ public class SudokuJuego {
         int inicioColumna = (columna / 3) * 3;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (mapaDeSudokuLocal[inicioFila + i][inicioColumna + j].getValorDeCasilla() == num) {
+
+                if (mapaDeSudokuLocal[inicioFila + i][inicioColumna + j].getValorDeCasilla() == num
+                        && fila != inicioFila + i && columna != inicioColumna + i) {
                     return false;
                 }
             }

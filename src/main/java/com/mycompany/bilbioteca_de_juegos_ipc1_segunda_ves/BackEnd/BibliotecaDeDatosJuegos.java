@@ -101,7 +101,7 @@ public class BibliotecaDeDatosJuegos {
         }
     }
 
-    public boolean esValido(int fila, int columna, int num, CasillaSudoku[][] mapaDeSudokuLocal) {
+    private boolean esValido(int fila, int columna, int num, CasillaSudoku[][] mapaDeSudokuLocal) {
         for (int i = 0; i < 9; i++) {
             if (mapaDeSudokuLocal[fila][i].getValorDeCasilla() == num) {
                 return false;
