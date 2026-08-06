@@ -16,8 +16,11 @@ public class TicTicTac {
     private ConfiguracionDeVisualBiblioteca configuracionesProyectoVisual = new ConfiguracionDeVisualBiblioteca();
     private Scanner scanner = new Scanner(System.in);
     private AiBotPorFor bot = new AiBotPorFor();
+    private BibliotecaReportesGlobales reportesDatos;
 
-    public void jugarTicTacToe() {
+    public void jugarTicTacToe(BibliotecaReportesGlobales reportesDatosEntrante) {
+        reportesDatos = reportesDatosEntrante;
+
         Casilla[][] mapeoDeTicTacToe = bibliotecaDeDatosJuegos.getBaseDeDatosDeTicTacToe();
         String movimientoJugador;
 
@@ -37,15 +40,20 @@ public class TicTicTac {
                     if (filaValida && columnaValida
                             && mapeoDeTicTacToe[Character.getNumericValue(fila)][Character.toUpperCase(columna) - 'A']
                                     .estaOcupada() == false) {
+                                        reportesDatos.addJugadasAcumuladasT();
 
                         pintorDeCasillas(mapeoDeTicTacToe, fila, columna);
 
                         if (condicionDeVictoria(mapeoDeTicTacToe, "Jugador")) {
                             interfasDeJuegos.ticTacToe(mapeoDeTicTacToe, "0");
+                            reportesDatos.addVictoriasJugadorT(1);
+                            reportesDatos.addRachaVictoriasT(1);
+                            reportesDatos.setRachaDerrotasT(0);
                             System.out.println("¡El Jugador gana!");
                             break;
                         } else if (condicionDeEmpate(mapeoDeTicTacToe)) {
                             interfasDeJuegos.ticTacToe(mapeoDeTicTacToe, "0");
+                            reportesDatos.addEmpatesT(1);
                             System.out.println("¡Es un Empate!");
                             break;
                         }
@@ -56,12 +64,18 @@ public class TicTicTac {
                         if (condicionDeVictoria(mapeoDeTicTacToe, "Bot")) {
                             interfasDeJuegos.ticTacToe(mapeoDeTicTacToe, "0");
                             System.out.println("¡El Bot gana!");
+                            reportesDatos.addVictoriasMaquinaT(1);
+                            reportesDatos.setRachaVictoriasT(0);
+                            reportesDatos.addRachaDerrotasT(1);
                             break;
                         }
 
                         else if (condicionDeEmpate(mapeoDeTicTacToe)) {
                             interfasDeJuegos.ticTacToe(mapeoDeTicTacToe, "0");
+                            reportesDatos.addEmpatesT(1);
                             System.out.println("¡Es un Empate!");
+                            reportesDatos.setRachaVictoriasT(0);
+                            reportesDatos.setRachaDerrotasT(0);
                             break;
                         }
 

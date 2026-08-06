@@ -17,6 +17,7 @@ public class MenuLoguica {
     private MenusIniciales menu = new MenusIniciales();
     private Scanner scanner = new Scanner(System.in);
     private int opcionDeJuego;
+    private BibliotecaReportesGlobales reportesDatos = new BibliotecaReportesGlobales();
 
     public void menuDeOpciones() {
         boolean opcionValida = true;
@@ -47,10 +48,6 @@ public class MenuLoguica {
 
             try {
                 switch (opcionDeJuego) {
-                    case 1:
-                        menu.selectorDeDificultad();
-                        dificultad = Integer.parseInt(scanner.nextLine());
-                        break;
                     case 3:
                         menu.selectorDeDificultad();
                         dificultad = Integer.parseInt(scanner.nextLine());
@@ -81,17 +78,21 @@ public class MenuLoguica {
             switch (opcionDeJuego) {
                 case 1:
                     AdivinaAnagramas adivinaAnagramas = new AdivinaAnagramas();
-                    adivinaAnagramas.jugarAdivinaAnagramas();
+                    adivinaAnagramas.jugarAdivinaAnagramas(reportesDatos);
                     break;
                 case 2:
                     TicTicTac ticTacToe = new TicTicTac();
-                    ticTacToe.jugarTicTacToe();
+                    ticTacToe.jugarTicTacToe(reportesDatos);
                     break;
-                case 3:
-                    SudokuJuego sudoku = new SudokuJuego();
-                    sudoku.jugarSudoku(dificultad);
-                    break;
-            }
+                    case 3:
+                        SudokuJuego sudoku = new SudokuJuego();
+                        sudoku.jugarSudoku(dificultad,reportesDatos);
+                        break;
+                    case 4:
+                        ReportesGlobales reportes = new ReportesGlobales();
+                        reportes.reportes(reportesDatos);
+                        break;
+                }
         } else {
             menu.regresandoAlMenuPrincipal();
         }

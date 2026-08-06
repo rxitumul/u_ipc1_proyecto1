@@ -14,7 +14,8 @@ public class MenusIniciales {
         System.out.printf("%-12s%s%10s%n", "|", "1. Adivina anagramas", "|");
         System.out.printf("%-12s%s%16s%n", "|", "2. Tic Tac Toe", "|");
         System.out.printf("%-12s%s%21s%n", "|", "3. Sudoku", "|");
-        System.out.printf("%-12s%s%21s%n", "|", "4. Salida", "|");
+        System.out.printf("%-12s%s%19s%n", "|", "4. Reportes", "|");
+        System.out.printf("%-12s%s%21s%n", "|", "5. Salida", "|");
         configuracionesProyectoVisual.separadorDeLineas();
         System.out.println("Ingrese el número del juego que desea jugar:");
         configuracionesProyectoVisual.separadorDeLineas();
@@ -61,7 +62,6 @@ public class MenusIniciales {
         System.out.printf("%-10s%s%11s%n", "| ", "Seleccione una opción", " |");
         configuracionesProyectoVisual.separadorDeLineas();
         System.out.printf("%-12s%s%22s%n", "|", "1. Jugar", "|");
-        // System.out.printf("%-12s%s%7s%n", "|", "2. Ver reglas del juego", "|");
         System.out.printf("%-12s%s%12s%n", "|", "2. Salir del juego", "|");
         configuracionesProyectoVisual.separadorDeLineas();
         System.out.println("Ingrese el número de la opción que desea seleccionar:");

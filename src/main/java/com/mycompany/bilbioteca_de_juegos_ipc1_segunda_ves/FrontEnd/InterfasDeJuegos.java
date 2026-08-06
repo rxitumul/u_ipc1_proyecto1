@@ -7,13 +7,36 @@ import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.TicTicTacH.Ca
 public class InterfasDeJuegos {
     private ConfiguracionDeVisualBiblioteca configuracionesProyectoVisual = new ConfiguracionDeVisualBiblioteca();
 
-    public void adivinaAnagramas(String palabraDesordenada) {
+    public void adivinaAnagramas(String palabraDesordenada, String[] palabrasAdivinadas, String[] palabrasFallidas, int intentosRestantes) {
         configuracionesProyectoVisual.delayThread();
         configuracionesProyectoVisual.limpiarPantalla();
         configuracionesProyectoVisual.separadorDeLineas();
-        System.out.println("| la palabra desordenada es: " + palabraDesordenada + " |");
+        System.out.println("| Letras disponibles (desordenadas): " + palabraDesordenada);
         configuracionesProyectoVisual.separadorDeLineas();
-        System.out.println("| Ingrese la palabra correcta: |");
+        
+        System.out.print("| Palabras adivinadas: ");
+        if (palabrasAdivinadas != null) {
+            for (int i = 0; i < palabrasAdivinadas.length; i++) {
+                if (palabrasAdivinadas[i] != null && !palabrasAdivinadas[i].isEmpty()) {
+                    System.out.print(palabrasAdivinadas[i] + " ");
+                }
+            }
+        }
+        System.out.println();
+        
+        System.out.print("| Palabras fallidas: ");
+        if (palabrasFallidas != null) {
+            for (int i = 0; i < palabrasFallidas.length; i++) {
+                if (palabrasFallidas[i] != null && !palabrasFallidas[i].isEmpty()) {
+                    System.out.print(palabrasFallidas[i] + " ");
+                }
+            }
+        }
+        System.out.println();
+        
+        System.out.println("| Intentos fallidos restantes: " + intentosRestantes);
+        configuracionesProyectoVisual.separadorDeLineas();
+        System.out.println("| Ingrese una palabra válida: ");
         configuracionesProyectoVisual.separadorDeLineas();
     }
 

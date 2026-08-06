@@ -19,17 +19,9 @@ import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.TicTicTacH.Ca
 public class BibliotecaDeDatosJuegos {
     private Random random = new Random();
 
-    private final static String[] BASE_DE_DATOS_DE_ANAGRAMAS = { "amor", "roma", "perro", "roper", "gato", "toga",
-            "casa", "saca", "mesa",
-            "samen" };
-
     private CasillaSudoku[][] mapaDeSudoku = new CasillaSudoku[9][9];
 
     private Casilla[][] mapaInicialDeTicTacToe = new Casilla[3][3];
-
-    public String[] getBaseDeDatosDeAnagramas() {
-        return BASE_DE_DATOS_DE_ANAGRAMAS;
-    }
 
     public Casilla[][] getBaseDeDatosDeTicTacToe() {
         for (int i = 0; i < mapaInicialDeTicTacToe.length; i++) {

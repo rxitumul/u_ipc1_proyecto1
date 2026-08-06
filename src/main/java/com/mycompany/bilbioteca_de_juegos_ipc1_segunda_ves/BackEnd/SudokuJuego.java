@@ -12,8 +12,12 @@ public class SudokuJuego {
     private BibliotecaDeDatosJuegos bibliotecaDeDatosJuegos = new BibliotecaDeDatosJuegos();
     private Scanner scanner = new Scanner(System.in);
     private MenusIniciales menuInicial = new MenusIniciales();
+    private BibliotecaReportesGlobales reportesDatos;
 
-    public void jugarSudoku(int dificultad) {
+    public void jugarSudoku(int dificultad, BibliotecaReportesGlobales reportesDatosEntrante) {
+        int contadorDeJugadas = 0;
+        reportesDatos = reportesDatosEntrante;
+        reportesDatos.addPartidasJugadasS();
 
         String opcionDeJugador;
         CasillaSudoku[][] mapeoDeSudoku = bibliotecaDeDatosJuegos.getBaseDeDatosDeSudoku(dificultad);
@@ -25,7 +29,7 @@ public class SudokuJuego {
 
                 interfasDeJuegos.sudoku(mapeoDeSudoku);
                 opcionDeJugador = scanner.nextLine();
-
+                contadorDeJugadas++;
                 if (opcionDeJugador.length() == 2) {
 
                     char fila = opcionDeJugador.charAt(0);
@@ -52,24 +56,34 @@ public class SudokuJuego {
                             mapeoDeSudoku[filaNumero][columnaNumero].condicionesIniciales();
 
                         } else {
+                            reportesDatos.addJugadasInvalidasS();
                             menuInicial.pantallaDeError();
                         }
 
                     } else {
+                        reportesDatos.addJugadasInvalidasS();
                         menuInicial.pantallaDeError();
                     }
 
                 } else if (opcionDeJugador.equalsIgnoreCase("x")) {
+                    reportesDatos.addPartidasAbandonadasS(1);
                     break;
                 } else {
+                    reportesDatos.addJugadasInvalidasS();
                     menuInicial.pantallaDeError();
                 }
                 if (condicionDeVictoria(mapeoDeSudoku)) {
+                    reportesDatos.addPartidasGanadasS(1);
                     break;
                 }
             } catch (NullPointerException | ArrayIndexOutOfBoundsException | NumberFormatException e) {
                 menuInicial.pantallaDeError();
+                reportesDatos.addJugadasInvalidasS();
             }
+        }
+        int record = reportesDatos.getRecordMenosJugadasS();
+        if (contadorDeJugadas < record) {
+            reportesDatos.setRecordMenosJugadasS(contadorDeJugadas);
         }
 
     }
@@ -119,7 +133,7 @@ public class SudokuJuego {
             for (int j = 0; j < 3; j++) {
 
                 if (mapaDeSudokuLocal[inicioFila + i][inicioColumna + j].getValorDeCasilla() == num
-                        && fila != inicioFila + i && columna != inicioColumna + i) {
+                        && (fila != inicioFila + i || columna != inicioColumna + j)) {
                     return false;
                 }
             }
