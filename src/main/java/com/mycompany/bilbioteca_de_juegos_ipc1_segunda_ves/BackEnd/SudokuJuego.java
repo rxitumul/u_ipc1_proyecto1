@@ -100,13 +100,13 @@ public class SudokuJuego {
 
     private boolean esValidoVictoria(int fila, int columna, int num, CasillaSudoku[][] mapaDeSudokuLocal) {
         for (int i = 0; i < 9; i++) {
-            if (i != fila || i != columna) {
-                if (mapaDeSudokuLocal[fila][i].getValorDeCasilla() == num) {
-                    return false;
-                }
-                if (mapaDeSudokuLocal[i][columna].getValorDeCasilla() == num) {
-                    return false;
-                }
+
+            if (mapaDeSudokuLocal[fila][i].getValorDeCasilla() == num && i != columna) {
+                return false;
+            }
+            if (mapaDeSudokuLocal[i][columna].getValorDeCasilla() == num && i != fila) {
+                return false;
+
             }
         }
         int inicioFila = (fila / 3) * 3;
