@@ -74,6 +74,16 @@ public class SudokuJuego {
                 }
                 if (condicionDeVictoria(mapeoDeSudoku)) {
                     reportesDatos.addPartidasGanadasS(1);
+                    int record = reportesDatos.getRecordMenosJugadasS();
+                    if (contadorDeJugadas < record) {
+                        reportesDatos.setRecordMenosJugadasS(contadorDeJugadas);
+                    }
+                    System.out.println("\n|----------------------------------------|");
+                    System.out.println("|         ¡FELICIDADES! GANASTE          |");
+                    System.out.println("|   Completaste el Sudoku correctamente  |");
+                    System.out.println("|----------------------------------------|\n");
+                    System.out.println("Presione Enter para continuar...");
+                    scanner.nextLine();
                     break;
                 }
             } catch (NullPointerException | ArrayIndexOutOfBoundsException | NumberFormatException e) {
@@ -81,11 +91,6 @@ public class SudokuJuego {
                 reportesDatos.addJugadasInvalidasS();
             }
         }
-        int record = reportesDatos.getRecordMenosJugadasS();
-        if (contadorDeJugadas < record) {
-            reportesDatos.setRecordMenosJugadasS(contadorDeJugadas);
-        }
-
     }
 
     private boolean condicionDeVictoria(CasillaSudoku[][] mapeoDeSudoku) {

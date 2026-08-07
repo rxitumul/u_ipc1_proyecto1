@@ -49,12 +49,16 @@ public class TicTicTac {
                             reportesDatos.addVictoriasJugadorT(1);
                             reportesDatos.addRachaVictoriasT(1);
                             reportesDatos.setRachaDerrotasT(0);
-                            System.out.println("¡El Jugador gana!");
+                            System.out.println("\n¡El Jugador gana!");
+                            System.out.println("Presione Enter para continuar...");
+                            scanner.nextLine();
                             break;
                         } else if (condicionDeEmpate(mapeoDeTicTacToe)) {
                             interfasDeJuegos.ticTacToe(mapeoDeTicTacToe, "0");
                             reportesDatos.addEmpatesT(1);
-                            System.out.println("¡Es un Empate!");
+                            System.out.println("\n¡Es un Empate!");
+                            System.out.println("Presione Enter para continuar...");
+                            scanner.nextLine();
                             break;
                         }
 
@@ -63,19 +67,23 @@ public class TicTicTac {
 
                         if (condicionDeVictoria(mapeoDeTicTacToe, "Bot")) {
                             interfasDeJuegos.ticTacToe(mapeoDeTicTacToe, "0");
-                            System.out.println("¡El Bot gana!");
+                            System.out.println("\n¡El Bot gana!");
                             reportesDatos.addVictoriasMaquinaT(1);
                             reportesDatos.setRachaVictoriasT(0);
                             reportesDatos.addRachaDerrotasT(1);
+                            System.out.println("Presione Enter para continuar...");
+                            scanner.nextLine();
                             break;
                         }
 
                         else if (condicionDeEmpate(mapeoDeTicTacToe)) {
                             interfasDeJuegos.ticTacToe(mapeoDeTicTacToe, "0");
                             reportesDatos.addEmpatesT(1);
-                            System.out.println("¡Es un Empate!");
+                            System.out.println("\n¡Es un Empate!");
                             reportesDatos.setRachaVictoriasT(0);
                             reportesDatos.setRachaDerrotasT(0);
+                            System.out.println("Presione Enter para continuar...");
+                            scanner.nextLine();
                             break;
                         }
 
