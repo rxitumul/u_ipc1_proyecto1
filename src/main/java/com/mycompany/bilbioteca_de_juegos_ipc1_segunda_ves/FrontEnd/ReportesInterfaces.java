@@ -21,7 +21,6 @@ public class ReportesInterfaces {
 
     public void reporteTicTacToe(int victoriasJugador, int victoriasMaquina, int empates, int rachaVictorias,
             int rachaDerrotas, double promedioJugadas) {
-        configuracionesProyectoVisual.limpiarPantalla();
         configuracionesProyectoVisual.separadorDeLineas();
         System.out.println("|          REPORTE: TIC TAC TOE          |");
         configuracionesProyectoVisual.separadorDeLineas();
@@ -40,7 +39,7 @@ public class ReportesInterfaces {
 
     public void reporteSudoku(int partidasGanadas, int partidasAbandonadas, double promedioJugadasInvalidas,
             int recordMenosJugadas) {
-        configuracionesProyectoVisual.limpiarPantalla();
+
         configuracionesProyectoVisual.separadorDeLineas();
         System.out.println("|            REPORTE: SUDOKU             |");
         configuracionesProyectoVisual.separadorDeLineas();
