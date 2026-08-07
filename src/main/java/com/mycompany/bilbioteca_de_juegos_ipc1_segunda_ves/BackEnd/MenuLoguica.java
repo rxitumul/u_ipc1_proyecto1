@@ -28,15 +28,13 @@ public class MenuLoguica {
                 if (opcionDeJuego >= 1 && opcionDeJuego <= 3) {
                     llamadaDeMenuDeJuegos(opcionDeJuego);
                 } else if (opcionDeJuego == 4) {
-                    ReportesGlobales reportes = new ReportesGlobales();
-                    reportes.reportes(reportesDatos);
-                } else if (opcionDeJuego == 5) {
                     menu.pantallaDeSalida();
                     opcionValida = false;
                 } else {
                     menu.pantallaDeError();
                 }
             } catch (Exception e) {
+                System.out.println(e);
                 menu.pantallaDeError();
             }
         }
@@ -89,6 +87,10 @@ public class MenuLoguica {
                 case 3:
                     SudokuJuego sudoku = new SudokuJuego();
                     sudoku.jugarSudoku(dificultad, reportesDatos);
+                    break;
+                case 4:
+                    ReportesGlobales reportes = new ReportesGlobales();
+                    reportes.reportes(reportesDatos);
                     break;
             }
         } else {

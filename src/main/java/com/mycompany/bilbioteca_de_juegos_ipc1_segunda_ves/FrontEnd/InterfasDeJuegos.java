@@ -54,6 +54,7 @@ public class InterfasDeJuegos {
         }
         System.out.println(" |" + "-".repeat(5) + "|" + "-".repeat(5) + "|" + "-".repeat(5) + "|");
         System.out.println("Turno del jugador: " + turnoDeJugador);
+        System.out.println("Ingrese la fila y columna de la celda que desea ocupar (ejemplo: 1A):");
 
     }
 

@@ -35,6 +35,7 @@ public class ReportesInterfaces {
         String val = String.format("%.1f", promedioJugadas);
         System.out.printf("| Promedio jugadas/partida: %-12s |\n", val);
         configuracionesProyectoVisual.separadorDeLineas();
+        System.out.println("Presione enter para salir ");
     }
 
     public void reporteSudoku(int partidasGanadas, int partidasAbandonadas, double promedioJugadasInvalidas,

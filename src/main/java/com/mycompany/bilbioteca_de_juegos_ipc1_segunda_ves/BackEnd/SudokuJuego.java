@@ -138,7 +138,7 @@ public class SudokuJuego {
             for (int j = 0; j < 3; j++) {
 
                 if (mapaDeSudokuLocal[inicioFila + i][inicioColumna + j].getValorDeCasilla() == num
-                        && (fila != inicioFila + i || columna != inicioColumna + j)) {
+                        && fila != inicioFila + i && columna != inicioColumna + j) {
                     return false;
                 }
             }

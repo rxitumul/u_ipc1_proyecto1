@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class AnagramasBancoDePalabras {
     private final static String[] BANCO_DE_PALABRAS = { "AMOR", "ROMA", "MORA", "RAMO", "ARMO", "GATO", "TOGA", "GOTA",
-            "CASO", "COSA", "SACO", "PARO", "PROA", "ROPA", "ASIR", "IRAS", "RIAS", "ALEGRA", "LAGEAR", "REGALA" };
+            "CASO", "COSA", "SACO", "PARO", "PROA", "ROPA","PORA", "ASIR", "IRAS", "RIAS", "ALEGRA", "LAGEAR", "REGALA" };
     private String palabraElegida;
     private String palabraDesOrdenadaFinal;
     private String[] palabrasAGenerar;
@@ -15,7 +15,7 @@ public class AnagramasBancoDePalabras {
         int numeroSelecionado = random.nextInt(BANCO_DE_PALABRAS.length);
         palabraElegida = BANCO_DE_PALABRAS[numeroSelecionado];
         palabrasAGenerar = selector(palabraElegida);
-        palabraDesOrdenadaFinal = palabraDesordenada(palabraElegida);
+        palabraDesOrdenadaFinal = palabraDesordenada(palabraElegida); 
 
     }
 
@@ -100,5 +100,5 @@ public class AnagramasBancoDePalabras {
         return String.copyValueOf(palabraOrdenada);
 
     }
-    
+
 }
