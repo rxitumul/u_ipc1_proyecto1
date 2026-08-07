@@ -1,17 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd;
 
 import java.util.Scanner;
-
 import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.FrontEnd.MenusIniciales;
 
-/**
- *
- * @author ricardocastillo
- */
 public class MenuLoguica {
 
     private MenusIniciales menu = new MenusIniciales();
@@ -28,24 +19,24 @@ public class MenuLoguica {
                 if (opcionDeJuego >= 1 && opcionDeJuego <= 3) {
                     llamadaDeMenuDeJuegos(opcionDeJuego);
                 } else if (opcionDeJuego == 4) {
+                    ReportesGlobales reportes = new ReportesGlobales();
+                    reportes.reportes(reportesDatos);
+                } else if (opcionDeJuego == 5) {
                     menu.pantallaDeSalida();
                     opcionValida = false;
                 } else {
                     menu.pantallaDeError();
                 }
             } catch (Exception e) {
-                System.out.println(e);
                 menu.pantallaDeError();
             }
         }
     }
 
     public void llamadaDeMenuDeJuegos(int opcionDeJuego) {
-
         String continuar;
         int dificultad = 0;
         while (true) {
-
             try {
                 switch (opcionDeJuego) {
                     case 3:
@@ -58,7 +49,6 @@ public class MenuLoguica {
                             case 2:
                                 dificultad = 46;
                                 break;
-
                             default:
                                 dificultad = 64;
                                 break;
@@ -88,14 +78,9 @@ public class MenuLoguica {
                     SudokuJuego sudoku = new SudokuJuego();
                     sudoku.jugarSudoku(dificultad, reportesDatos);
                     break;
-                case 4:
-                    ReportesGlobales reportes = new ReportesGlobales();
-                    reportes.reportes(reportesDatos);
-                    break;
             }
         } else {
             menu.regresandoAlMenuPrincipal();
         }
-
     }
 }

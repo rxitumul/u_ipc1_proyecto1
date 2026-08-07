@@ -73,14 +73,20 @@ public class AdivinaAnagramas {
                         }
                     }
                     if (!palabraEncontrada) {
-                        palabrasFallidas[contadroMalas] = palabraUsuario.toUpperCase();
+                        if (contadroMalas < palabrasFallidas.length) {
+                            palabrasFallidas[contadroMalas] = palabraUsuario.toUpperCase();
+                            contadroMalas++;
+                        }
                         mensajeDeError();
                         intentos--;
-                        contadroMalas++;
                     }
                 }
 
             } else {
+                if (contadroMalas < palabrasFallidas.length) {
+                    palabrasFallidas[contadroMalas] = palabraUsuario.toUpperCase();
+                    contadroMalas++;
+                }
                 mensajeDeError();
                 intentos--;
             }
