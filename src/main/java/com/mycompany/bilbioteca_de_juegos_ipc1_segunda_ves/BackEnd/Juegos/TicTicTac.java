@@ -1,24 +1,24 @@
-package com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd;
+package com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.Juegos;
 
 import java.util.Scanner;
 
+import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.BibliotecaDeDatosJuegos;
+import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.BibliotecaReportesGlobales;
 import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.TicTicTacH.AiBotPorFor;
 import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.TicTicTacH.Casilla;
-import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.TicTicTacH.CasillaBot;
-import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.TicTicTacH.CasillaJugador;
-import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.FrontEnd.ConfiguracionDeVisualBiblioteca;
 import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.FrontEnd.InterfasDeJuegos;
+import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.FrontEnd.MenusInformativos;
 
-public class TicTicTac {
+public class TicTicTac extends Juegos {
 
     private InterfasDeJuegos interfasDeJuegos = new InterfasDeJuegos();
     private BibliotecaDeDatosJuegos bibliotecaDeDatosJuegos = new BibliotecaDeDatosJuegos();
-    private ConfiguracionDeVisualBiblioteca configuracionesProyectoVisual = new ConfiguracionDeVisualBiblioteca();
     private Scanner scanner = new Scanner(System.in);
     private AiBotPorFor bot = new AiBotPorFor();
     private BibliotecaReportesGlobales reportesDatos;
+    private MenusInformativos informativo = new MenusInformativos();
 
-    public void jugarTicTacToe(BibliotecaReportesGlobales reportesDatosEntrante) {
+    public void jugar(int dificultad,BibliotecaReportesGlobales reportesDatosEntrante) {
         reportesDatos = reportesDatosEntrante;
 
         Casilla[][] mapeoDeTicTacToe = bibliotecaDeDatosJuegos.getBaseDeDatosDeTicTacToe();
@@ -38,9 +38,9 @@ public class TicTicTac {
                     boolean columnaValida = Character.isLetter(columna);
                     // validacion de movimiento del jugador
                     if (filaValida && columnaValida
-                            && mapeoDeTicTacToe[Character.getNumericValue(fila)][Character.toUpperCase(columna) - 'A']
-                                    .estaOcupada() == false) {
-                                        reportesDatos.addJugadasAcumuladasT();
+                            && !mapeoDeTicTacToe[Character.getNumericValue(fila)][Character.toUpperCase(columna) - 'A']
+                                    .estaOcupada()) {
+                        reportesDatos.addJugadasAcumuladasT();
 
                         pintorDeCasillas(mapeoDeTicTacToe, fila, columna);
 
@@ -49,15 +49,13 @@ public class TicTicTac {
                             reportesDatos.addVictoriasJugadorT(1);
                             reportesDatos.addRachaVictoriasT(1);
                             reportesDatos.setRachaDerrotasT(0);
-                            System.out.println("\n¡El Jugador gana!");
-                            System.out.println("Presione Enter para continuar...");
+                            informativo.condicionDePartidaFinalizada("a victoria para el Jugador");
                             scanner.nextLine();
                             break;
                         } else if (condicionDeEmpate(mapeoDeTicTacToe)) {
                             interfasDeJuegos.ticTacToe(mapeoDeTicTacToe, "0");
                             reportesDatos.addEmpatesT(1);
-                            System.out.println("\n¡Es un Empate!");
-                            System.out.println("Presione Enter para continuar...");
+                            informativo.condicionDePartidaFinalizada(" Empate");
                             scanner.nextLine();
                             break;
                         }
@@ -67,11 +65,11 @@ public class TicTicTac {
 
                         if (condicionDeVictoria(mapeoDeTicTacToe, "Bot")) {
                             interfasDeJuegos.ticTacToe(mapeoDeTicTacToe, "0");
-                            System.out.println("\n¡El Bot gana!");
                             reportesDatos.addVictoriasMaquinaT(1);
                             reportesDatos.setRachaVictoriasT(0);
                             reportesDatos.addRachaDerrotasT(1);
-                            System.out.println("Presione Enter para continuar...");
+                            informativo.condicionDePartidaFinalizada("a victoria para el Bot");
+
                             scanner.nextLine();
                             break;
                         }
@@ -79,22 +77,21 @@ public class TicTicTac {
                         else if (condicionDeEmpate(mapeoDeTicTacToe)) {
                             interfasDeJuegos.ticTacToe(mapeoDeTicTacToe, "0");
                             reportesDatos.addEmpatesT(1);
-                            System.out.println("\n¡Es un Empate!");
                             reportesDatos.setRachaVictoriasT(0);
                             reportesDatos.setRachaDerrotasT(0);
-                            System.out.println("Presione Enter para continuar...");
+                            informativo.condicionDePartidaFinalizada(" Empate");
                             scanner.nextLine();
                             break;
                         }
 
                     } else {
-                        mensajeDeError();
+                        informativo.mensajeDeError();
                     }
                 } else {
-                    mensajeDeError();
+                    informativo.mensajeDeError();
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
-                mensajeDeError();
+                informativo.mensajeDeError();
             }
         }
 
@@ -117,11 +114,9 @@ public class TicTicTac {
 
     private void casillaSeleccionada(Casilla[][] mapeoDeTicTacToe, int filaIndice, int columnaIndice, boolean caso) {
         if (caso) {
-            mapeoDeTicTacToe[filaIndice][columnaIndice] = new CasillaJugador();
-            ((CasillaJugador) mapeoDeTicTacToe[filaIndice][columnaIndice]).cambioSimbolo();
+            mapeoDeTicTacToe[filaIndice][columnaIndice].ocupar("\033[31mX\033[0m", "Jugador");
         } else {
-            mapeoDeTicTacToe[filaIndice][columnaIndice] = new CasillaBot();
-            ((CasillaBot) mapeoDeTicTacToe[filaIndice][columnaIndice]).cambioSimbolo();
+            mapeoDeTicTacToe[filaIndice][columnaIndice].ocupar("\033[34mO\033[0m", "Bot");
         }
     }
 
@@ -161,16 +156,6 @@ public class TicTicTac {
         return false;
     }
 
-    private void mensajeDeError() {
-        configuracionesProyectoVisual.delayThread();
-        configuracionesProyectoVisual.limpiarPantalla();
-        System.out.print("\033[38;5;208m");
-        configuracionesProyectoVisual.separadorDeLineas();
-        System.out.println("Movimiento invalido, intente de nuevo");
-        configuracionesProyectoVisual.separadorDeLineas();
-        System.out.print("\033[0m");
-    }
-
     private boolean condicionDeEmpate(Casilla[][] mapeoDeTicTacToe) {
         for (int i = 0; i < mapeoDeTicTacToe.length; i++) {
             for (int j = 0; j < mapeoDeTicTacToe[i].length; j++) {
@@ -180,5 +165,10 @@ public class TicTicTac {
             }
         }
         return true;
+    }
+
+    @Override
+    protected String getNombre() {
+        return "|      Bienvenido al juego Tic Tac Toe       |";
     }
 }

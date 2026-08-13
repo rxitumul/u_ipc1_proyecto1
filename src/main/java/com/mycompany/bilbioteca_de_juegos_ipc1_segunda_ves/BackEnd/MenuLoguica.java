@@ -1,6 +1,11 @@
 package com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd;
 
 import java.util.Scanner;
+
+import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.Juegos.AdivinaAnagramas;
+import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.Juegos.Juegos;
+import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.Juegos.SudokuJuego;
+import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.Juegos.TicTicTac;
 import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.FrontEnd.MenusIniciales;
 
 public class MenuLoguica {
@@ -34,53 +39,48 @@ public class MenuLoguica {
     }
 
     public void llamadaDeMenuDeJuegos(int opcionDeJuego) {
-        String continuar;
         int dificultad = 0;
-        while (true) {
-            try {
-                switch (opcionDeJuego) {
-                    case 3:
-                        menu.selectorDeDificultad();
-                        dificultad = Integer.parseInt(scanner.nextLine());
-                        switch (dificultad) {
-                            case 1:
-                                dificultad = 30;
-                                break;
-                            case 2:
-                                dificultad = 46;
-                                break;
-                            default:
-                                dificultad = 64;
-                                break;
-                        }
-                        break;
-                }
-                break;
+        if (opcionDeJuego == 3) {
+            while (true) {
+                try {
+                    menu.selectorDeDificultad();
+                    dificultad = Integer.parseInt(scanner.nextLine());
+                    switch (dificultad) {
+                        case 1:
+                            dificultad = 30;
+                            break;
+                        case 2:
+                            dificultad = 46;
+                            break;
+                        default:
+                            dificultad = 64;
+                            break;
+                    }
 
-            } catch (NumberFormatException e) {
-                menu.pantallaDeError();
+                    break;
+                } catch (NumberFormatException e) {
+                    menu.pantallaDeError();
+                }
             }
         }
+        Juegos juegoSeleccionado;
+        switch (opcionDeJuego) {
+            case 1:
+                juegoSeleccionado = new AdivinaAnagramas();
+                break;
+            case 2:
+                juegoSeleccionado = new TicTicTac();
+                break;
+            case 3:
+                juegoSeleccionado = new SudokuJuego();
+                break;
+            default:
+                juegoSeleccionado = null;
+                break;
+        }
 
-        menu.menuDeJuegos(opcionDeJuego);
-        continuar = scanner.nextLine();
-        if (continuar.equalsIgnoreCase("1")) {
-            switch (opcionDeJuego) {
-                case 1:
-                    AdivinaAnagramas adivinaAnagramas = new AdivinaAnagramas();
-                    adivinaAnagramas.jugarAdivinaAnagramas(reportesDatos);
-                    break;
-                case 2:
-                    TicTicTac ticTacToe = new TicTicTac();
-                    ticTacToe.jugarTicTacToe(reportesDatos);
-                    break;
-                case 3:
-                    SudokuJuego sudoku = new SudokuJuego();
-                    sudoku.jugarSudoku(dificultad, reportesDatos);
-                    break;
-            }
-        } else {
-            menu.regresandoAlMenuPrincipal();
+        if (juegoSeleccionado != null) {
+            juegoSeleccionado.inicioDeJuego(dificultad, reportesDatos);
         }
     }
 }

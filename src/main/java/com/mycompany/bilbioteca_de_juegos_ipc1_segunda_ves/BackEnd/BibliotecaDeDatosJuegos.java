@@ -3,18 +3,7 @@ package com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd;
 import java.util.Random;
 
 import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.Sudoku.CasillaSudoku;
-import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.Sudoku.Numeral1;
-import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.Sudoku.Numeral2;
-import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.Sudoku.Numeral3;
-import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.Sudoku.Numeral4;
-import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.Sudoku.Numeral5;
-import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.Sudoku.Numeral6;
-import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.Sudoku.Numeral7;
-import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.Sudoku.Numeral8;
-import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.Sudoku.Numeral9;
-import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.Sudoku.NumeralVacio;
 import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.TicTicTacH.Casilla;
-import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.TicTicTacH.CasillaVacia;
 
 public class BibliotecaDeDatosJuegos {
     private Random random = new Random();
@@ -26,7 +15,7 @@ public class BibliotecaDeDatosJuegos {
     public Casilla[][] getBaseDeDatosDeTicTacToe() {
         for (int i = 0; i < mapaInicialDeTicTacToe.length; i++) {
             for (int j = 0; j < mapaInicialDeTicTacToe[i].length; j++) {
-                mapaInicialDeTicTacToe[i][j] = new CasillaVacia();
+                mapaInicialDeTicTacToe[i][j] = new Casilla();
             }
         }
         return mapaInicialDeTicTacToe;
@@ -35,7 +24,7 @@ public class BibliotecaDeDatosJuegos {
     public CasillaSudoku[][] getBaseDeDatosDeSudoku(int dificultad) {
         for (int i = 0; i < mapaDeSudoku.length; i++) {
             for (int j = 0; j < mapaDeSudoku[i].length; j++) {
-                mapaDeSudoku[i][j] = new NumeralVacio();
+                mapaDeSudoku[i][j] = new CasillaSudoku(0, false);
             }
         }
         creadorDeSudoku(0, 3);
@@ -58,9 +47,7 @@ public class BibliotecaDeDatosJuegos {
                 while (true) {
                     numeroRandom = random.nextInt(9);
                     if (bar[numeroRandom] != 0) {
-                        mapaDeSudoku[i][j] = tablaDeNumeros(bar[numeroRandom]);
-                        mapaDeSudoku[i][j].setGeneradoInicial(true);
-                        mapaDeSudoku[i][j].condicionesIniciales();
+                        mapaDeSudoku[i][j] = new CasillaSudoku(bar[numeroRandom], true);
                         bar[numeroRandom] = 0;
                         break;
                     }
@@ -70,35 +57,12 @@ public class BibliotecaDeDatosJuegos {
         }
     }
 
-    public CasillaSudoku tablaDeNumeros(int tipo) {
-        switch (tipo) {
-            case 1:
-                return new Numeral1();
-            case 2:
-                return new Numeral2();
-            case 3:
-                return new Numeral3();
-            case 4:
-                return new Numeral4();
-            case 5:
-                return new Numeral5();
-            case 6:
-                return new Numeral6();
-            case 7:
-                return new Numeral7();
-            case 8:
-                return new Numeral8();
-            default:
-                return new Numeral9();
-        }
-    }
-
     private boolean esValido(int fila, int columna, int num, CasillaSudoku[][] mapaDeSudokuLocal) {
         for (int i = 0; i < 9; i++) {
-            if (mapaDeSudokuLocal[fila][i].getValorDeCasilla() == num) {
+            if (mapaDeSudokuLocal[fila][i].getValor() == num) {
                 return false;
             }
-            if (mapaDeSudokuLocal[i][columna].getValorDeCasilla() == num) {
+            if (mapaDeSudokuLocal[i][columna].getValor() == num) {
                 return false;
             }
         }
@@ -106,7 +70,7 @@ public class BibliotecaDeDatosJuegos {
         int inicioColumna = (columna / 3) * 3;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (mapaDeSudokuLocal[inicioFila + i][inicioColumna + j].getValorDeCasilla() == num) {
+                if (mapaDeSudokuLocal[inicioFila + i][inicioColumna + j].getValor() == num) {
                     return false;
                 }
             }
@@ -117,18 +81,16 @@ public class BibliotecaDeDatosJuegos {
     private boolean tableroRellenado() {
         for (int i = 0; i < mapaDeSudoku.length; i++) {
             for (int j = 0; j < mapaDeSudoku[i].length; j++) {
-                if (mapaDeSudoku[i][j].getValorDeCasilla() == 0) {
+                if (mapaDeSudoku[i][j].getValor() == 0) {
                     for (int num = 1; num <= 9; num++) {
                         if (esValido(i, j, num, mapaDeSudoku)) {
-                            mapaDeSudoku[i][j] = tablaDeNumeros(num);
-                            mapaDeSudoku[i][j].setGeneradoInicial(true);
-                            mapaDeSudoku[i][j].condicionesIniciales();
+                            mapaDeSudoku[i][j] = new CasillaSudoku(num, true);
 
                             if (tableroRellenado()) {
                                 return true;
                             }
 
-                            mapaDeSudoku[i][j] = new NumeralVacio();
+                            mapaDeSudoku[i][j] = new CasillaSudoku(0, false);
                         }
                     }
                     return false;
@@ -146,10 +108,8 @@ public class BibliotecaDeDatosJuegos {
             while (true) {
                 fila = random.nextInt(9);
                 columna = random.nextInt(9);
-                if (mapaDeSudoku[fila][columna].getValorDeCasilla() != 0) {
-                    mapaDeSudoku[fila][columna] = new NumeralVacio();
-                    mapaDeSudoku[fila][columna].condicionesIniciales();
-                    mapaDeSudoku[fila][columna].setGeneradoInicial(false);
+                if (mapaDeSudoku[fila][columna].getValor() != 0) {
+                    mapaDeSudoku[fila][columna] = new CasillaSudoku(0, false);
                     break;
                 }
 

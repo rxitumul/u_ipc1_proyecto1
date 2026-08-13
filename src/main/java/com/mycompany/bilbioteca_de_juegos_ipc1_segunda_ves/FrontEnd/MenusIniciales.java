@@ -42,27 +42,18 @@ public class MenusIniciales {
         configuracionesProyectoVisual.separadorDeLineas();
     }
 
-    public void menuDeJuegos(int opcionDeJuego) {
+    public void menuDeJuegos(String opcionDeJuego) {
         configuracionesProyectoVisual.delayThread();
         configuracionesProyectoVisual.limpiarPantalla();
         configuracionesProyectoVisual.separadorDeLineas();
-        switch (opcionDeJuego) {
-            case 1:
-                System.out.printf("%-3s%s%2s%n", "| ", "Bienvenido al juego Adivina Anagramas", " |");
-                break;
-            case 2:
-                System.out.printf("%-5s%s%6s%n", "| ", "Bienvenido al juego Tic Tac Toe", " |");
-                break;
-
-            default:
-                System.out.printf("%-8s%s%8s%n", "| ", "Bienvenido al juego Sudoku", " |");
-                break;
-        }
+        System.out.println(opcionDeJuego);
         configuracionesProyectoVisual.separadorDeLineas();
         System.out.printf("%-10s%s%11s%n", "| ", "Seleccione una opción", " |");
         configuracionesProyectoVisual.separadorDeLineas();
         System.out.printf("%-12s%s%22s%n", "|", "1. Jugar", "|");
-        System.out.printf("%-12s%s%12s%n", "|", "2. Salir del juego", "|");
+        configuracionesProyectoVisual.separadorDeLineas();
+        System.out.println("precione enter o escriba cualquier otra ");
+        System.out.println("tecla para regresar al menu principal");
         configuracionesProyectoVisual.separadorDeLineas();
         System.out.println("Ingrese el número de la opción que desea seleccionar:");
         configuracionesProyectoVisual.separadorDeLineas();

@@ -1,20 +1,24 @@
-package com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd;
+package com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.Juegos;
 
 import java.util.Scanner;
 
+import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.BibliotecaDeDatosJuegos;
+import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.BibliotecaReportesGlobales;
 import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.Sudoku.CasillaSudoku;
 
 import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.FrontEnd.InterfasDeJuegos;
+import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.FrontEnd.MenusInformativos;
 import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.FrontEnd.MenusIniciales;
 
-public class SudokuJuego {
+public class SudokuJuego extends Juegos {
     private InterfasDeJuegos interfasDeJuegos = new InterfasDeJuegos();
     private BibliotecaDeDatosJuegos bibliotecaDeDatosJuegos = new BibliotecaDeDatosJuegos();
     private Scanner scanner = new Scanner(System.in);
     private MenusIniciales menuInicial = new MenusIniciales();
     private BibliotecaReportesGlobales reportesDatos;
+    private MenusInformativos informativo = new MenusInformativos();
 
-    public void jugarSudoku(int dificultad, BibliotecaReportesGlobales reportesDatosEntrante) {
+    public void jugar(int dificultad, BibliotecaReportesGlobales reportesDatosEntrante) {
         int contadorDeJugadas = 0;
         reportesDatos = reportesDatosEntrante;
         reportesDatos.addPartidasJugadasS();
@@ -43,7 +47,7 @@ public class SudokuJuego {
 
                     // validacion de movimiento del jugador
                     if (filaNumero < 9 && columnaNumero < 9 && filaValida && columnaValida
-                            && mapeoDeSudoku[filaNumero][columnaNumero].getGeneradoInicial() == false) {
+                            && !mapeoDeSudoku[filaNumero][columnaNumero].isEsInicial()) {
 
                         System.out.println("Ingrese un numero del 1 al 9");
                         numero = Integer.parseInt(scanner.nextLine());
@@ -51,9 +55,7 @@ public class SudokuJuego {
                         if (numero >= 1 && numero <= 9
                                 && esValidoVictoria(filaNumero, columnaNumero, numero, mapeoDeSudoku)) {
 
-                            mapeoDeSudoku[filaNumero][columnaNumero] = bibliotecaDeDatosJuegos.tablaDeNumeros(numero);
-                            mapeoDeSudoku[filaNumero][columnaNumero].setGeneradoInicial(false);
-                            mapeoDeSudoku[filaNumero][columnaNumero].condicionesIniciales();
+                            mapeoDeSudoku[filaNumero][columnaNumero].setValor(numero);
 
                         } else {
                             reportesDatos.addJugadasInvalidasS();
@@ -78,11 +80,7 @@ public class SudokuJuego {
                     if (contadorDeJugadas < record) {
                         reportesDatos.setRecordMenosJugadasS(contadorDeJugadas);
                     }
-                    System.out.println("\n|----------------------------------------|");
-                    System.out.println("|         ¡FELICIDADES! GANASTE          |");
-                    System.out.println("|   Completaste el Sudoku correctamente  |");
-                    System.out.println("|----------------------------------------|\n");
-                    System.out.println("Presione Enter para continuar...");
+                    informativo.mensajeDeVictoriaSudoku();
                     scanner.nextLine();
                     break;
                 }
@@ -98,8 +96,8 @@ public class SudokuJuego {
         for (int i = 0; i < mapeoDeSudoku.length; i++) {
             sumador = 0;
             for (int j = 0; j < mapeoDeSudoku[i].length; j++) {
-                if (esValidoVictoria(i, j, mapeoDeSudoku[i][j].getValorDeCasilla(), mapeoDeSudoku)) {
-                    sumador = mapeoDeSudoku[i][j].getValorDeCasilla() + sumador;
+                if (esValidoVictoria(i, j, mapeoDeSudoku[i][j].getValor(), mapeoDeSudoku)) {
+                    sumador = mapeoDeSudoku[i][j].getValor() + sumador;
                 }
             }
             if (sumador != 45) {
@@ -110,8 +108,8 @@ public class SudokuJuego {
         for (int i = 0; i < mapeoDeSudoku.length; i++) {
             sumador = 0;
             for (int j = 0; j < mapeoDeSudoku[i].length; j++) {
-                if (esValidoVictoria(j, i, mapeoDeSudoku[j][i].getValorDeCasilla(), mapeoDeSudoku)) {
-                    sumador = mapeoDeSudoku[j][i].getValorDeCasilla() + sumador;
+                if (esValidoVictoria(j, i, mapeoDeSudoku[j][i].getValor(), mapeoDeSudoku)) {
+                    sumador = mapeoDeSudoku[j][i].getValor() + sumador;
                 }
             }
             if (sumador != 45) {
@@ -124,10 +122,10 @@ public class SudokuJuego {
     private boolean esValidoVictoria(int fila, int columna, int num, CasillaSudoku[][] mapaDeSudokuLocal) {
         for (int i = 0; i < 9; i++) {
 
-            if (mapaDeSudokuLocal[fila][i].getValorDeCasilla() == num && i != columna) {
+            if (mapaDeSudokuLocal[fila][i].getValor() == num && i != columna) {
                 return false;
             }
-            if (mapaDeSudokuLocal[i][columna].getValorDeCasilla() == num && i != fila) {
+            if (mapaDeSudokuLocal[i][columna].getValor() == num && i != fila) {
                 return false;
 
             }
@@ -137,13 +135,19 @@ public class SudokuJuego {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
 
-                if (mapaDeSudokuLocal[inicioFila + i][inicioColumna + j].getValorDeCasilla() == num
+                if (mapaDeSudokuLocal[inicioFila + i][inicioColumna + j].getValor() == num
                         && fila != inicioFila + i && columna != inicioColumna + j) {
                     return false;
                 }
             }
         }
         return true;
+    }
+
+    @Override
+    protected String getNombre() {
+        return "|         Bienvenido al juego Sudoku         |";
+
     }
 
 }

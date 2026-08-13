@@ -1,20 +1,22 @@
-package com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd;
+package com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.Juegos;
 
 import java.util.Scanner;
 
+import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.BibliotecaReportesGlobales;
 import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.Anagramas.AnagramasBancoDePalabras;
 import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.FrontEnd.InterfasDeJuegos;
+import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.FrontEnd.MenusInformativos;
 
-public class AdivinaAnagramas {
+public class AdivinaAnagramas extends Juegos {
 
     private InterfasDeJuegos interfasDeJuegos = new InterfasDeJuegos();
     private AnagramasBancoDePalabras banco = new AnagramasBancoDePalabras();
     private Scanner scanner = new Scanner(System.in);
     private BibliotecaReportesGlobales reportesDatos;
-
+    private MenusInformativos informativos = new MenusInformativos();
     private final static double PORCENTAJE_DE_ACEPTACION = 0.5;
 
-    public void jugarAdivinaAnagramas(BibliotecaReportesGlobales reportesDatosEntrante) {
+    public void jugar(int dificultad,BibliotecaReportesGlobales reportesDatosEntrante) {
 
         reportesDatos = reportesDatosEntrante;
         reportesDatos.addPartidasJugadasA(1);
@@ -56,7 +58,7 @@ public class AdivinaAnagramas {
                     if (palabrasUsadasCorrectas[i] != null
                             && palabraUsuario.equalsIgnoreCase(palabrasUsadasCorrectas[i])) {
                         palabraUsada = true;
-                        mensajeDeErrorRepetido();
+                        informativos.mensajeDeErrorRepetidoAnagramas();
                         break;
                     }
                 }
@@ -73,32 +75,36 @@ public class AdivinaAnagramas {
                         }
                     }
                     if (!palabraEncontrada) {
-                        if (contadroMalas < palabrasFallidas.length) {
-                            palabrasFallidas[contadroMalas] = palabraUsuario.toUpperCase();
-                            contadroMalas++;
-                        }
-                        mensajeDeError();
-                        intentos--;
+                        intentos = registrarIntentoFallido(palabraUsuario, palabrasFallidas, contadroMalas, intentos);
+                        contadroMalas++;
                     }
                 }
 
             } else {
-                if (contadroMalas < palabrasFallidas.length) {
-                    palabrasFallidas[contadroMalas] = palabraUsuario.toUpperCase();
-                    contadroMalas++;
-                }
-                mensajeDeError();
-                intentos--;
+                intentos = registrarIntentoFallido(palabraUsuario, palabrasFallidas, contadroMalas, intentos);
+                contadroMalas++;
             }
 
             if (condicionDeVictoria(mapeoDeAnagramas)) {
-                mensajeDeVictoria();
+                reportesDatos.addCantidadDePartidasGanadasA(1);
+                informativos.mensajeDeVictoriaAnagramas();
+                scanner.nextLine();
                 break;
             } else if (intentos <= 0) {
-                mensajeDeDerrota();
+                informativos.mensajeDeDerrotaAnagramas();
+                scanner.nextLine();
                 break;
             }
         }
+    }
+
+    private int registrarIntentoFallido(String palabraUsuario, String[] palabrasFallidas, int contadorMalas, int intentos) {
+        if (contadorMalas < palabrasFallidas.length) {
+            palabrasFallidas[contadorMalas] = palabraUsuario.toUpperCase();
+        }
+        reportesDatos.addIntentosFallidosA(1);
+        informativos.mensajeDeErrorAnagramas();
+        return intentos - 1;
     }
 
     private boolean condicionDeVictoria(String[] mapeadorDepalabras) {
@@ -110,38 +116,9 @@ public class AdivinaAnagramas {
         return true;
     }
 
-    private void mensajeDeDerrota() {
-        System.out.println("\n|----------------------------------------|");
-        System.out.println("|               ¡PERDISTE!               |");
-        System.out.println("|      Te has quedado sin intentos.      |");
-        System.out.println("|----------------------------------------|\n");
-        System.out.println("Presione Enter para continuar...");
-        scanner.nextLine();
-    }
-
-    private void mensajeDeVictoria() {
-        reportesDatos.addCantidadDePartidasGanadasA(1);
-        System.out.println("\n|----------------------------------------|");
-        System.out.println("|               ¡GANASTE!                |");
-        System.out.println("|   ¡Encontraste todos los anagramas!    |");
-        System.out.println("|----------------------------------------|\n");
-        System.out.println("Presione Enter para continuar...");
-        scanner.nextLine();
-    }
-
-    private void mensajeDeErrorRepetido() {
-        System.out.println("\n|----------------------------------------|");
-        System.out.println("|  Esa palabra ya la habías encontrado.  |");
-        System.out.println("|        Intenta con otra distinta.      |");
-        System.out.println("|----------------------------------------|\n");
-    }
-
-    private void mensajeDeError() {
-        reportesDatos.addIntentosFallidosA(1);
-        System.out.println("\n|----------------------------------------|");
-        System.out.println("|  Palabra inválida o no es un anagrama. |");
-        System.out.println("|            ¡Intento fallido!           |");
-        System.out.println("|----------------------------------------|\n");
+    @Override
+    protected String getNombre() {
+        return "|   Bienvenido al juego Adivina Anagramas   |";
     }
 
 }

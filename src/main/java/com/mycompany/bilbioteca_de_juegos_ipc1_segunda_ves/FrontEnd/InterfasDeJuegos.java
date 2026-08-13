@@ -7,13 +7,14 @@ import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.TicTicTacH.Ca
 public class InterfasDeJuegos {
     private ConfiguracionDeVisualBiblioteca configuracionesProyectoVisual = new ConfiguracionDeVisualBiblioteca();
 
-    public void adivinaAnagramas(String palabraDesordenada, String[] palabrasAdivinadas, String[] palabrasFallidas, int intentosRestantes) {
+    public void adivinaAnagramas(String palabraDesordenada, String[] palabrasAdivinadas, String[] palabrasFallidas,
+            int intentosRestantes) {
         configuracionesProyectoVisual.delayThread();
         configuracionesProyectoVisual.limpiarPantalla();
         configuracionesProyectoVisual.separadorDeLineas();
         System.out.println("| Letras disponibles (desordenadas): " + palabraDesordenada);
         configuracionesProyectoVisual.separadorDeLineas();
-        
+
         System.out.print("| Palabras adivinadas: ");
         if (palabrasAdivinadas != null) {
             for (int i = 0; i < palabrasAdivinadas.length; i++) {
@@ -23,7 +24,7 @@ public class InterfasDeJuegos {
             }
         }
         System.out.println();
-        
+
         System.out.print("| Palabras fallidas: ");
         if (palabrasFallidas != null) {
             for (int i = 0; i < palabrasFallidas.length; i++) {
@@ -33,7 +34,7 @@ public class InterfasDeJuegos {
             }
         }
         System.out.println();
-        
+
         System.out.println("| Intentos fallidos restantes: " + intentosRestantes);
         configuracionesProyectoVisual.separadorDeLineas();
         System.out.println("| Ingrese una palabra válida: ");
