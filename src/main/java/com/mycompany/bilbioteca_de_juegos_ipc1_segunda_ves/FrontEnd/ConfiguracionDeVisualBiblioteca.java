@@ -17,16 +17,18 @@ public class ConfiguracionDeVisualBiblioteca {
     public String formatearCentrado(String texto) {
         int interior = ANCHO - 2;
 
+        // Longitud visual: sin contar los códigos ANSI de color
+        String textoSinAnsi = texto.replaceAll("\u001B\\[[\\d;]*m", "");
+        int longitudVisible = textoSinAnsi.length();
 
-        if (texto.length() > interior) {
-            texto = texto.substring(0, interior);
+        if (longitudVisible > interior) {
+            // Truncar basado en la longitud visible, no el total con ANSI
+            texto = textoSinAnsi.substring(0, interior);
+            longitudVisible = interior;
         }
 
-
-        int espaciosIzquierda = (interior - texto.length()) / 2;
-
-        int espaciosDerecha = interior - texto.length() - espaciosIzquierda;
-
+        int espaciosIzquierda = (interior - longitudVisible) / 2;
+        int espaciosDerecha = interior - longitudVisible - espaciosIzquierda;
 
         String formato = "|" + " ".repeat(espaciosIzquierda) + texto + " ".repeat(espaciosDerecha) + "|";
 

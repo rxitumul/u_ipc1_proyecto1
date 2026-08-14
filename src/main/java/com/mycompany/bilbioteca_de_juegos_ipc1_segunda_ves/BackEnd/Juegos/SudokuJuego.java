@@ -49,10 +49,13 @@ public class SudokuJuego extends Juegos {
                     if (filaNumero < 9 && columnaNumero < 9 && filaValida && columnaValida
                             && !mapeoDeSudoku[filaNumero][columnaNumero].isEsInicial()) {
 
-                        System.out.println("Ingrese un numero del 1 al 9");
+                        System.out.println("Ingrese un numero del 1 al 9 o 0 para resetear");
                         numero = Integer.parseInt(scanner.nextLine());
 
-                        if (numero >= 1 && numero <= 9
+                        if (numero == 0) {
+
+                            mapeoDeSudoku[filaNumero][columnaNumero].setValor(0);
+                        } else if (numero >= 1 && numero <= 9
                                 && esValidoVictoria(filaNumero, columnaNumero, numero, mapeoDeSudoku)) {
 
                             mapeoDeSudoku[filaNumero][columnaNumero].setValor(numero);
@@ -80,6 +83,7 @@ public class SudokuJuego extends Juegos {
                     if (contadorDeJugadas < record) {
                         reportesDatos.setRecordMenosJugadasS(contadorDeJugadas);
                     }
+                    interfasDeJuegos.sudoku(mapeoDeSudoku);
                     informativo.mensajeDeVictoriaSudoku();
                     scanner.nextLine();
                     break;
