@@ -7,17 +7,18 @@ public class MenusIniciales {
         configuracionesProyectoVisual.delayThread();
         configuracionesProyectoVisual.limpiarPantalla();
         configuracionesProyectoVisual.separadorDeLineas();
-        System.out.printf("%-2s%s%4s%n", "| ", "Bienvenido a la biblioteca de juegos", " |");
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("Bienvenido a la biblioteca de juegos"));
         configuracionesProyectoVisual.separadorDeLineas();
-        System.out.printf("%-3s%s%4s%n", "| ", "Seleccione el juego que desea jugar", " |");
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("Seleccione el juego que desea jugar"));
         configuracionesProyectoVisual.separadorDeLineas();
-        System.out.printf("%-12s%s%10s%n", "|", "1. Adivina anagramas", "|");
-        System.out.printf("%-12s%s%16s%n", "|", "2. Tic Tac Toe", "|");
-        System.out.printf("%-12s%s%21s%n", "|", "3. Sudoku", "|");
-        System.out.printf("%-12s%s%19s%n", "|", "4. Reportes", "|");
-        System.out.printf("%-12s%s%21s%n", "|", "5. Salida", "|");
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("1. Adivina anagramas"));
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("2. Tic Tac Toe"));
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("3. Sudoku"));
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("4. Reportes"));
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("5. Salida"));
         configuracionesProyectoVisual.separadorDeLineas();
-        System.out.println("Ingrese el número del juego que desea jugar:");
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("Ingrese el número del juego"));
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("que desea jugar:"));
         configuracionesProyectoVisual.separadorDeLineas();
 
     }
@@ -27,8 +28,8 @@ public class MenusIniciales {
         System.out.print("\033[38;5;208m");
         configuracionesProyectoVisual.limpiarPantalla();
         configuracionesProyectoVisual.separadorDeLineas();
-        System.out.printf("%-10s%s%9s%n%s%s%s%n", "| ", "Error: Opción inválida ", " |", "|",
-                "Por favor, seleccione una opción válida ", "|");
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("Error: Opción inválida "));
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("Por favor, seleccione una opción válida "));
         configuracionesProyectoVisual.separadorDeLineas();
         System.out.print("\033[0m");
     }
@@ -37,8 +38,8 @@ public class MenusIniciales {
         configuracionesProyectoVisual.delayThread();
         configuracionesProyectoVisual.limpiarPantalla();
         configuracionesProyectoVisual.separadorDeLineas();
-        System.out.printf("%-1s%s%1s%n%-15s%s%14s%n", "|", "Gracias por usar la biblioteca de juegos", "|", "|",
-                "¡Hasta luego!", "|");
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("Gracias por usar la biblioteca de juegos"));
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("¡Hasta luego!"));
         configuracionesProyectoVisual.separadorDeLineas();
     }
 
@@ -46,16 +47,16 @@ public class MenusIniciales {
         configuracionesProyectoVisual.delayThread();
         configuracionesProyectoVisual.limpiarPantalla();
         configuracionesProyectoVisual.separadorDeLineas();
-        System.out.println(opcionDeJuego);
+        System.out.println(configuracionesProyectoVisual.formatearCentrado(opcionDeJuego));
         configuracionesProyectoVisual.separadorDeLineas();
-        System.out.printf("%-10s%s%11s%n", "| ", "Seleccione una opción", " |");
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("Seleccione una opción"));
         configuracionesProyectoVisual.separadorDeLineas();
-        System.out.printf("%-12s%s%22s%n", "|", "1. Jugar", "|");
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("1. Jugar"));
         configuracionesProyectoVisual.separadorDeLineas();
-        System.out.println("precione enter o escriba cualquier otra ");
-        System.out.println("tecla para regresar al menu principal");
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("precione enter o escriba cualquier otra "));
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("tecla para regresar al menu principal"));
         configuracionesProyectoVisual.separadorDeLineas();
-        System.out.println("Ingrese el número de la opción que desea seleccionar:");
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("Ingrese uno para jugar"));
         configuracionesProyectoVisual.separadorDeLineas();
     }
 
@@ -63,22 +64,26 @@ public class MenusIniciales {
         configuracionesProyectoVisual.delayThread();
         configuracionesProyectoVisual.limpiarPantalla();
         configuracionesProyectoVisual.separadorDeLineas();
-        System.out.printf("%-3s%s%2s%n%-15s%s%14s%n", "|", "Regresando al menú principal", "|", "|",
-                "¡Hasta luego!", "|");
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("Regresando al menú principal"));
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("¡Hasta luego!"));
         configuracionesProyectoVisual.separadorDeLineas();
     }
 
     public void selectorDeDificultad() {
+        configuracionesProyectoVisual.limpiarPantalla();
         configuracionesProyectoVisual.separadorDeLineas();
-        System.out.printf("%-10s%s%11s%n", "| ", "Eliga una dificultad ", " |");
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("Eliga una dificultad "));
         configuracionesProyectoVisual.separadorDeLineas();
-        System.out.printf("%-10s%s%11s%n", "| ", "Seleccione una opción", " |");
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("Seleccione una opción"));
         configuracionesProyectoVisual.separadorDeLineas();
-        System.out.printf("%-12s%s%22s%n", "|", "1. Facil", "|");
-        System.out.printf("%-12s%s%22s%n", "|", "2. Medio", "|");
-        System.out.printf("%-12s%s%20s%n", "|", "3. Dificil", "|");
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("1. Facil"));
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("2. Medio"));
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("3. Dificil"));
         configuracionesProyectoVisual.separadorDeLineas();
-        System.out.println("Ingrese el número de la opción que desea seleccionar:");
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("Ingrese el número de la opción que desea"));
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("seleccionar. De lo contrario,la"));
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("dificultad se configurará en "));
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("difícil por defecto."));
         configuracionesProyectoVisual.separadorDeLineas();
     }
 }

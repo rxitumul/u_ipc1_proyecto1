@@ -16,7 +16,7 @@ public class AdivinaAnagramas extends Juegos {
     private MenusInformativos informativos = new MenusInformativos();
     private final static double PORCENTAJE_DE_ACEPTACION = 0.5;
 
-    public void jugar(int dificultad,BibliotecaReportesGlobales reportesDatosEntrante) {
+    public void jugar(int dificultad, BibliotecaReportesGlobales reportesDatosEntrante) {
 
         reportesDatos = reportesDatosEntrante;
         reportesDatos.addPartidasJugadasA(1);
@@ -45,7 +45,8 @@ public class AdivinaAnagramas extends Juegos {
             palabraEncontrada = false;
             palabraUsada = false;
 
-            interfasDeJuegos.adivinaAnagramas(palabraConColor, palabrasUsadasCorrectas, palabrasFallidas, intentos);
+            interfasDeJuegos.adivinaAnagramas(palabraConColor, palabrasUsadasCorrectas, palabrasFallidas, intentos,
+                    mapeoDeAnagramas.length);
             palabraUsuario = scanner.nextLine();
 
             if (palabraUsuario.equalsIgnoreCase("x")) {
@@ -98,7 +99,8 @@ public class AdivinaAnagramas extends Juegos {
         }
     }
 
-    private int registrarIntentoFallido(String palabraUsuario, String[] palabrasFallidas, int contadorMalas, int intentos) {
+    private int registrarIntentoFallido(String palabraUsuario, String[] palabrasFallidas, int contadorMalas,
+            int intentos) {
         if (contadorMalas < palabrasFallidas.length) {
             palabrasFallidas[contadorMalas] = palabraUsuario.toUpperCase();
         }
@@ -118,7 +120,7 @@ public class AdivinaAnagramas extends Juegos {
 
     @Override
     protected String getNombre() {
-        return "|   Bienvenido al juego Adivina Anagramas   |";
+        return "Bienvenido al juego Adivina Anagramas";
     }
 
 }

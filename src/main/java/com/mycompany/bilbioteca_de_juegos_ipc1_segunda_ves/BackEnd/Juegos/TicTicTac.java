@@ -1,5 +1,6 @@
 package com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.Juegos;
 
+import java.util.Random;
 import java.util.Scanner;
 
 import com.mycompany.bilbioteca_de_juegos_ipc1_segunda_ves.BackEnd.BibliotecaDeDatosJuegos;
@@ -17,13 +18,14 @@ public class TicTicTac extends Juegos {
     private AiBotPorFor bot = new AiBotPorFor();
     private BibliotecaReportesGlobales reportesDatos;
     private MenusInformativos informativo = new MenusInformativos();
+    private Random rand = new Random();
 
-    public void jugar(int dificultad,BibliotecaReportesGlobales reportesDatosEntrante) {
+    public void jugar(int dificultad, BibliotecaReportesGlobales reportesDatosEntrante) {
         reportesDatos = reportesDatosEntrante;
 
         Casilla[][] mapeoDeTicTacToe = bibliotecaDeDatosJuegos.getBaseDeDatosDeTicTacToe();
         String movimientoJugador;
-
+        boolean inicio = rand.nextBoolean();
         while (true) {
             try {
                 interfasDeJuegos.ticTacToe(mapeoDeTicTacToe, "0");
@@ -37,28 +39,34 @@ public class TicTicTac extends Juegos {
                     boolean filaValida = Character.isDigit(fila);
                     boolean columnaValida = Character.isLetter(columna);
                     // validacion de movimiento del jugador
+
                     if (filaValida && columnaValida
                             && !mapeoDeTicTacToe[Character.getNumericValue(fila)][Character.toUpperCase(columna) - 'A']
                                     .estaOcupada()) {
-                        reportesDatos.addJugadasAcumuladasT();
+                        if (!inicio) {
 
-                        pintorDeCasillas(mapeoDeTicTacToe, fila, columna);
+                            reportesDatos.addJugadasAcumuladasT();
 
-                        if (condicionDeVictoria(mapeoDeTicTacToe, "Jugador")) {
-                            interfasDeJuegos.ticTacToe(mapeoDeTicTacToe, "0");
-                            reportesDatos.addVictoriasJugadorT(1);
-                            reportesDatos.addRachaVictoriasT(1);
-                            reportesDatos.setRachaDerrotasT(0);
-                            informativo.condicionDePartidaFinalizada("a victoria para el Jugador");
-                            scanner.nextLine();
-                            break;
-                        } else if (condicionDeEmpate(mapeoDeTicTacToe)) {
-                            interfasDeJuegos.ticTacToe(mapeoDeTicTacToe, "0");
-                            reportesDatos.addEmpatesT(1);
-                            informativo.condicionDePartidaFinalizada(" Empate");
-                            scanner.nextLine();
-                            break;
+                            pintorDeCasillas(mapeoDeTicTacToe, fila, columna);
+
+                            if (condicionDeVictoria(mapeoDeTicTacToe, "Jugador")) {
+                                interfasDeJuegos.ticTacToe(mapeoDeTicTacToe, "0");
+                                reportesDatos.addVictoriasJugadorT(1);
+                                reportesDatos.addRachaVictoriasT(1);
+                                reportesDatos.setRachaDerrotasT(0);
+                                informativo.condicionDePartidaFinalizada("a victoria para el Jugador");
+                                scanner.nextLine();
+                                break;
+                            } else if (condicionDeEmpate(mapeoDeTicTacToe)) {
+                                interfasDeJuegos.ticTacToe(mapeoDeTicTacToe, "0");
+                                reportesDatos.addEmpatesT(1);
+                                informativo.condicionDePartidaFinalizada(" Empate");
+                                scanner.nextLine();
+                                break;
+                            }
+
                         }
+                        inicio = false;
 
                         // juego del bot
                         traductorDeBot(mapeoDeTicTacToe, fila, columna);
@@ -169,6 +177,6 @@ public class TicTicTac extends Juegos {
 
     @Override
     protected String getNombre() {
-        return "|      Bienvenido al juego Tic Tac Toe       |";
+        return "Bienvenido al juego Tic Tac Toe";
     }
 }

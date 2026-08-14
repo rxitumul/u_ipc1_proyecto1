@@ -96,8 +96,12 @@ public class SudokuJuego extends Juegos {
         for (int i = 0; i < mapeoDeSudoku.length; i++) {
             sumador = 0;
             for (int j = 0; j < mapeoDeSudoku[i].length; j++) {
-                if (esValidoVictoria(i, j, mapeoDeSudoku[i][j].getValor(), mapeoDeSudoku)) {
-                    sumador = mapeoDeSudoku[i][j].getValor() + sumador;
+                int val = mapeoDeSudoku[i][j].getValor();
+                if (val == 0) {
+                    return false;
+                }
+                if (esValidoVictoria(i, j, val, mapeoDeSudoku)) {
+                    sumador = val + sumador;
                 }
             }
             if (sumador != 45) {
@@ -108,8 +112,12 @@ public class SudokuJuego extends Juegos {
         for (int i = 0; i < mapeoDeSudoku.length; i++) {
             sumador = 0;
             for (int j = 0; j < mapeoDeSudoku[i].length; j++) {
-                if (esValidoVictoria(j, i, mapeoDeSudoku[j][i].getValor(), mapeoDeSudoku)) {
-                    sumador = mapeoDeSudoku[j][i].getValor() + sumador;
+                int val = mapeoDeSudoku[j][i].getValor();
+                if (val == 0) {
+                    return false;
+                }
+                if (esValidoVictoria(j, i, val, mapeoDeSudoku)) {
+                    sumador = val + sumador;
                 }
             }
             if (sumador != 45) {
@@ -120,6 +128,9 @@ public class SudokuJuego extends Juegos {
     }
 
     private boolean esValidoVictoria(int fila, int columna, int num, CasillaSudoku[][] mapaDeSudokuLocal) {
+        if (num == 0) {
+            return false;
+        }
         for (int i = 0; i < 9; i++) {
 
             if (mapaDeSudokuLocal[fila][i].getValor() == num && i != columna) {
@@ -134,9 +145,9 @@ public class SudokuJuego extends Juegos {
         int inicioColumna = (columna / 3) * 3;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-
-                if (mapaDeSudokuLocal[inicioFila + i][inicioColumna + j].getValor() == num
-                        && fila != inicioFila + i && columna != inicioColumna + j) {
+                int r = inicioFila + i;
+                int c = inicioColumna + j;
+                if (mapaDeSudokuLocal[r][c].getValor() == num && (r != fila || c != columna)) {
                     return false;
                 }
             }
@@ -146,7 +157,7 @@ public class SudokuJuego extends Juegos {
 
     @Override
     protected String getNombre() {
-        return "|         Bienvenido al juego Sudoku         |";
+        return "Bienvenido al juego Sudoku";
 
     }
 

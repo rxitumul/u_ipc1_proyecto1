@@ -8,11 +8,12 @@ public class InterfasDeJuegos {
     private ConfiguracionDeVisualBiblioteca configuracionesProyectoVisual = new ConfiguracionDeVisualBiblioteca();
 
     public void adivinaAnagramas(String palabraDesordenada, String[] palabrasAdivinadas, String[] palabrasFallidas,
-            int intentosRestantes) {
+            int intentosRestantes, int palabrasAAdivinar) {
         configuracionesProyectoVisual.delayThread();
         configuracionesProyectoVisual.limpiarPantalla();
         configuracionesProyectoVisual.separadorDeLineas();
-        System.out.println("| Letras disponibles (desordenadas): " + palabraDesordenada);
+        System.out.println(configuracionesProyectoVisual
+                .formatearCentrado("Letras disponibles (desordenadas): " + palabraDesordenada));
         configuracionesProyectoVisual.separadorDeLineas();
 
         System.out.print("| Palabras adivinadas: ");
@@ -35,9 +36,12 @@ public class InterfasDeJuegos {
         }
         System.out.println();
 
-        System.out.println("| Intentos fallidos restantes: " + intentosRestantes);
+        System.out.println(
+                configuracionesProyectoVisual.formatearCentrado("Intentos fallidos restantes: " + intentosRestantes));
+        System.out
+                .println(configuracionesProyectoVisual.formatearCentrado("Palabras a adivinar: " + palabrasAAdivinar));
         configuracionesProyectoVisual.separadorDeLineas();
-        System.out.println("| Ingrese una palabra válida: ");
+        System.out.println(configuracionesProyectoVisual.formatearCentrado("Ingrese una palabra válida: "));
         configuracionesProyectoVisual.separadorDeLineas();
     }
 
